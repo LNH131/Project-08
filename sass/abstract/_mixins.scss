@@ -1,0 +1,36 @@
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+);
+
+@mixin breakpoint($key) {
+    $breakpoint: map-get(
+        $map: $grid-breakpoints,
+        $key: $key,
+    );
+    @if ($breakpoint) {
+        @media (max-width: ($breakpoint - 0.02)) {
+            @content;
+        }
+    } @else {
+        @error "#{$key} is not in breakpoints list.";
+    }
+}
+
+@mixin changeDropdownIcon($index, $before, $after) {
+    .dropdown__column:nth-of-type(#{$index}) {
+        .dropdown__icon {
+            &::before {
+                content: url($before);
+            }
+
+            &::after {
+                content: url($after);
+            }
+        }
+    }
+}

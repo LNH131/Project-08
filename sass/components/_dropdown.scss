@@ -1,0 +1,345 @@
+@use "../abstract";
+
+.dropdown {
+    --main-menu-width: 292px;
+
+    visibility: hidden;
+    opacity: 0;
+    min-width: min(1240px, 100%);
+    padding-top: 54px;
+    position: absolute;
+    left: 0;
+    color: var(--dropdown-text-color, inherit);
+
+    &__inner {
+        height: min(582px, 100vh - 158px);
+        position: relative;
+        padding: 30px;
+        border-radius: 20px;
+        background: var(--dropdown-bg-color);
+        box-shadow: 0px 40px 90px 20px var(--dropdown-shadow);
+
+        &::before {
+            content: url(../icons/dropdown-arrow.svg);
+            position: absolute;
+            top: -13px;
+            left: var(--arrow-left-pos);
+            translate: -50%;
+            filter: var(--dropdown-arrow);
+        }
+    }
+
+    &__menu {
+        height: 100%;
+        position: relative;
+    }
+
+    &__main-menu {
+        width: var(--main-menu-width);
+        height: 100%;
+        overflow-y: auto;
+
+        .dropdown__category-item:nth-of-type(1) {
+            .dropdown__sub-menu {
+                > .dropdown__column:nth-of-type(1) {
+                    .dropdown__icon {
+                        &::before {
+                            content: url(../icons/star.svg);
+                        }
+
+                        &::after {
+                            content: url("../icons/snack.svg");
+                        }
+                    }
+                }
+
+                > .dropdown__column-group {
+                    &-1 {
+                        @include abstract.changeDropdownIcon(2, "../icons/rock.svg", "../icons/woman-face.svg");
+                    }
+                }
+            }
+        }
+
+        .dropdown__category-item:nth-of-type(4) {
+            .dropdown__sub-menu {
+                > .dropdown__column:nth-of-type(1) {
+                    .dropdown__icon {
+                        &::before {
+                            content: url(../icons/heptadecagon.svg);
+                        }
+
+                        &::after {
+                            content: url("../icons/heart.svg");
+                        }
+                    }
+                }
+            }
+        }
+
+        // Custom scrollbar
+
+        &::-webkit-scrollbar {
+            border-radius: 0;
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(22, 24, 35, 0.2);
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 0;
+            background-color: rgba(0, 0, 0, 0);
+        }
+    }
+
+    &__sub-menu {
+        padding-left: 20px;
+        visibility: hidden;
+        display: flex;
+        justify-content: space-evenly;
+        position: absolute;
+        inset: 0 0 0 calc(var(--main-menu-width) - 10px);
+        overflow-y: auto;
+
+        &:nth-child(2) {
+            .dropdown__icon {
+                &::before {
+                    content: url(../icons/polygon.svg);
+                }
+
+                &::after {
+                    content: url(../icons/monitors.svg);
+                }
+            }
+        }
+
+        .dropdown__column-group {
+            &-1 {
+                @include abstract.changeDropdownIcon(1, "../icons/rectangle.svg", "../icons/game.svg");
+                @include abstract.changeDropdownIcon(2, "../icons/star.svg", "../icons/game.svg");
+            }
+
+            &-2 {
+                @include abstract.changeDropdownIcon(1, "../icons/elipse-01.svg", "../icons/pocket.svg");
+
+                @include abstract.changeDropdownIcon(2, "../icons/hexagon.svg", "../icons/phone.svg");
+            }
+        }
+
+        // Custom scrollbar
+
+        &::-webkit-scrollbar {
+            border-radius: 0;
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(22, 24, 35, 0.2);
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 0;
+            background-color: rgba(0, 0, 0, 0);
+        }
+    }
+
+    &__column {
+        display: flex;
+        gap: 20px;
+
+        &:nth-of-type(5) {
+            margin-left: 60px;
+        }
+    }
+
+    &__column-group {
+        .dropdown__column + .dropdown__column {
+            margin-top: 21px;
+        }
+    }
+
+    &__icon {
+        position: relative;
+        width: 36px;
+        height: 36px;
+
+        @include abstract.breakpoint(xl) {
+            display: none;
+        }
+
+        &::before {
+            content: url(../icons/circle.svg);
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+
+        &::after {
+            content: url(../icons/category.svg);
+            filter: var(--dropdown-icon);
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            width: 24px;
+            height: 24px;
+            object-fit: cover;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        margin-top: 3px;
+    }
+
+    &__title {
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    &__category-list {
+        margin-top: 26px;
+    }
+
+    &__category-item {
+        &:hover .dropdown__sub-menu {
+            visibility: visible;
+        }
+
+        &:hover > .dropdown__category-link {
+            text-shadow: 0px 0px 1px rgba(0, 113, 220, 1);
+            color: rgba(0, 113, 220, 1);
+        }
+    }
+
+    &__category-link {
+        display: block;
+        font-size: 1.4rem;
+        padding: 7px 5px;
+    }
+}
+
+.grocery-dropdown,
+.beauty-dropdown {
+    .dropdown__main-menu {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.grocery-dropdown {
+    .dropdown__column-group {
+        flex-shrink: 0;
+
+        &-1 {
+            @include abstract.changeDropdownIcon(1, "../icons/rectangle.svg", "../icons/cart.svg");
+
+            @include abstract.changeDropdownIcon(2, "../icons/star.svg", "../icons/tomato.svg");
+
+            .dropdown__column:nth-of-type(2) {
+                .dropdown__icon {
+                    &::after {
+                        filter: brightness(0) saturate(100%) invert(100%) sepia(30%) saturate(1311%) hue-rotate(33deg)
+                            brightness(92%) contrast(89%);
+                    }
+                }
+            }
+        }
+
+        &-2 {
+            @include abstract.changeDropdownIcon(1, "../icons/triangle.svg", "../icons/bread.svg");
+
+            @include abstract.changeDropdownIcon(2, "../icons/rhombus.svg", "../icons/breakfast.svg");
+        }
+
+        &-3 {
+            @include abstract.changeDropdownIcon(1, "../icons/elipse-02.svg", "../icons/snack.svg");
+
+            @include abstract.changeDropdownIcon(2, "../icons/heptadecagon.svg", "../icons/candy.svg");
+        }
+
+        &-4 {
+            @include abstract.changeDropdownIcon(1, "../icons/elipse-01.svg", "../icons/coffee.svg");
+
+            .dropdown__column:nth-of-type(1) {
+                .dropdown__icon {
+                    &::before {
+                        filter: brightness(0) saturate(100%) invert(85%) sepia(94%) saturate(3608%) hue-rotate(292deg)
+                            brightness(103%) contrast(98%);
+                    }
+                }
+            }
+
+            @include abstract.changeDropdownIcon(2, "../icons/hexagon.svg", "../icons/beverage.svg");
+            .dropdown__column:nth-of-type(2) {
+                .dropdown__icon {
+                    &::before {
+                        filter: brightness(0) saturate(100%) invert(95%) sepia(13%) saturate(820%) hue-rotate(43deg)
+                            brightness(90%) contrast(87%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.beauty-dropdown {
+    .dropdown__column-group {
+        flex-shrink: 0;
+
+        &-1 {
+            @include abstract.changeDropdownIcon(1, "../icons/rectangle.svg", "../icons/cart.svg");
+
+            @include abstract.changeDropdownIcon(2, "../icons/rock.svg", "../icons/beauty.svg");
+        }
+
+        &-2 {
+            @include abstract.changeDropdownIcon(1, "../icons/pentagon.svg", "../icons/light-star.svg");
+
+            @include abstract.changeDropdownIcon(2, "../icons/rhombus.svg", "../icons/breakfast.svg");
+            .dropdown__column:nth-of-type(2) {
+                .dropdown__icon {
+                    &::before {
+                        filter: brightness(0) saturate(100%) invert(74%) sepia(62%) saturate(4454%) hue-rotate(183deg)
+                            brightness(94%) contrast(92%);
+                    }
+                }
+            }
+        }
+    }
+
+    .dropdown__column:nth-of-type(3) {
+        .dropdown__icon {
+            &::before {
+                content: url(../icons/hexagon.svg);
+                filter: brightness(0) saturate(100%) invert(95%) sepia(13%) saturate(820%) hue-rotate(43deg)
+                    brightness(90%) contrast(87%);
+            }
+
+            &::after {
+                content: url("../icons/premium.svg");
+            }
+        }
+    }
+
+    .dropdown__column:nth-of-type(4) {
+        .dropdown__icon {
+            &::before {
+                content: url(../icons/elipse-01.svg);
+                filter: brightness(0) saturate(100%) invert(83%) sepia(75%) saturate(497%) hue-rotate(319deg)
+                    brightness(102%) contrast(102%);
+            }
+
+            &::after {
+                content: url("../icons/woman-face.svg");
+            }
+        }
+    }
+}
