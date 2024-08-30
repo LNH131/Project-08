@@ -1677,7 +1677,7 @@ html {
   width: 100%;
   margin-top: 3px;
 }
-.dropdown__title, .dropdown__total {
+.dropdown__title {
   font-weight: 500;
   line-height: 1.5;
 }
