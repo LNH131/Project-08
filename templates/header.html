@@ -1,7 +1,7 @@
 <div class="container">
     <div class="top-bar">
         <!-- 'More' button -->
-        <button class="top-bar__more">
+        <button class="top-bar__more d-none d-lg-block js-toggle" toggle-target="#navbar">
             <img src="./assets/icons/more.svg" alt="" class="icon top-bar__more-icon" />
         </button>
         <!-- Logo -->
@@ -11,7 +11,28 @@
         </a>
 
         <!-- Navbar -->
-        <nav class="navbar">
+        <nav class="navbar hide" id="navbar">
+            <img
+                src="../assets/icons/arrow-left.svg"
+                alt=""
+                class="navbar__arrow-left d-none d-lg-block js-toggle"
+                toggle-target="#navbar"
+            />
+
+            <div class="top-act__group d-none d-lg-block">
+                <button class="top-act__btn">
+                    <img src="./assets/icons/cart.svg" alt="" class="icon top-act__img" />
+                    <span class="top-act__title">Card</span>
+                    <span class="top-act__total">3</span>
+                </button>
+
+                <button class="top-act__btn">
+                    <img src="./assets/icons/heart.svg" alt="" class="icon top-act__img" />
+                    <span class="top-act__title">Favorite</span>
+                    <span class="top-act__total">3</span>
+                </button>
+            </div>
+
             <ul class="navbar__list js-dropdown-list">
                 <!-- Departments -->
                 <li class="navbar__item">
@@ -1630,6 +1651,8 @@
             </ul>
         </nav>
 
+        <div class="navbar-overlay d-none d-lg-block js-toggle" toggle-target="#navbar"></div>
+
         <!-- Action -->
         <div class="top-act">
             <div class="top-act__group">
@@ -1639,14 +1662,14 @@
             </div>
 
             <div class="top-act__group">
-                <button class="top-act__btn top-act__btn--double">
+                <button class="top-act__btn top-act__btn--double d-xl-none">
                     <img src="./assets/icons/heart.svg" alt="" class="icon top-act__img" />
                     <span class="top-act__title">03</span>
                 </button>
 
-                <div class="top-act__separate"></div>
+                <div class="top-act__separate d-xl-none"></div>
 
-                <button class="top-act__btn">
+                <button class="top-act__btn d-lg-none">
                     <img src="./assets/icons/cart.svg" alt="" class="icon top-act__img" />
                     <span class="top-act__title">$65.42</span>
                 </button>

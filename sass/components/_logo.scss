@@ -6,6 +6,7 @@
     gap: 14px;
 
     @include abstract.breakpoint(lg) {
+        margin-left: 39px;
         gap: 10px;
     }
 
@@ -23,7 +24,6 @@
 
     &__img {
         @include abstract.breakpoint(lg) {
-            margin-left: 39px;
             width: 24px;
         }
     }

@@ -18,14 +18,6 @@
     @extend %flexCenter;
 
     position: relative;
-
-    &__more-icon {
-        display: none;
-
-        @include abstract.breakpoint(lg) {
-            display: block;
-        }
-    }
 }
 
 .navbar {
@@ -36,14 +28,48 @@
     }
 
     @include abstract.breakpoint(lg) {
-        display: none;
+        position: fixed;
+        inset: 0 50% 0 0;
+        z-index: 9;
+
+        translate: -100%;
+        transition: translate 0.3s;
+
+        margin-left: 0;
+        padding: 40px;
+
+        background: #fff;
+
+        &.show {
+            translate: 0;
+
+            ~ .navbar-overlay {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+
+    &__arrow-left {
+        @include abstract.breakpoint(lg) {
+            padding-bottom: 15px;
+        }
     }
 
     &__list {
         @extend %flexCenter;
+
+        @include abstract.breakpoint(lg) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 
     &__item {
+        @include abstract.breakpoint(lg) {
+            width: 100%;
+        }
+
         &:hover {
             .dropdown {
                 visibility: visible;
@@ -62,10 +88,33 @@
             size: 1.5rem;
             weight: 500;
         }
+
+        @include abstract.breakpoint(lg) {
+            justify-content: space-between;
+
+            padding: 15px 0;
+            height: initial;
+        }
     }
 
     &__arrow {
         margin-top: 3px;
+    }
+
+    &-overlay {
+        transition: visibility, opacity;
+        transition-duration: 0.3s;
+
+        @include abstract.breakpoint(lg) {
+            visibility: hidden;
+            opacity: 0;
+
+            position: fixed;
+            inset: 0;
+            z-index: 8;
+
+            background: rgb(0, 0, 0, 0.4);
+        }
     }
 }
 
@@ -80,8 +129,9 @@
         background: var(--top-act-group-bg-color);
         box-shadow: 0px 20px 60px 10px var(--top-act-group-shadow);
 
-        @include abstract.breakpoint(md) {
-            display: none;
+        @include abstract.breakpoint(lg) {
+            flex-direction: column;
+            align-items: flex-start;
         }
     }
 
@@ -91,15 +141,29 @@
         padding: 13px;
         gap: 10px;
 
+        @include abstract.breakpoint(lg) {
+            padding: 15px 0;
+            width: 100%;
+
+            gap: 16px;
+        }
+
         &--double {
             padding: 10px 20px;
         }
     }
 
-    &__title {
+    &__title,
+    &__total {
         font-size: 1.5rem;
         font-weight: 500;
         line-height: 1.46;
+    }
+
+    &__total {
+        @include abstract.breakpoint(lg) {
+            margin-left: auto;
+        }
     }
 
     &__separate {
