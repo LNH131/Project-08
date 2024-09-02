@@ -3,13 +3,18 @@
 .dropdown {
     --main-menu-width: 292px;
 
-    visibility: hidden;
-    opacity: 0;
+    display: none;
     min-width: min(1240px, 100%);
     padding-top: 54px;
     position: absolute;
     left: 0;
     color: var(--dropdown-text-color, inherit);
+
+    @include abstract.breakpoint(lg) {
+        position: initial;
+
+        padding-top: 0;
+    }
 
     &__inner {
         height: min(582px, 100vh - 158px);
@@ -18,6 +23,19 @@
         border-radius: 20px;
         background: var(--dropdown-bg-color);
         box-shadow: 0px 40px 90px 20px var(--dropdown-shadow);
+
+        @include abstract.breakpoint(lg) {
+            padding: 0;
+            height: inherit;
+
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+
+            &::before {
+                content: none !important;
+            }
+        }
 
         &::before {
             content: url(../icons/dropdown-arrow.svg);
@@ -38,6 +56,16 @@
         width: var(--main-menu-width);
         height: 100%;
         overflow-y: auto;
+
+        @include abstract.breakpoint(lg) {
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+        }
+
+        @include abstract.breakpoint(md) {
+            overflow-y: initial;
+        }
 
         .dropdown__category-item:nth-of-type(1) {
             .dropdown__sub-menu {
@@ -96,13 +124,24 @@
     }
 
     &__sub-menu {
+        display: none;
         padding-left: 20px;
-        visibility: hidden;
-        display: flex;
         justify-content: space-evenly;
         position: absolute;
         inset: 0 0 0 calc(var(--main-menu-width) - 10px);
         overflow-y: auto;
+
+        @include abstract.breakpoint(lg) {
+            margin-top: 14px;
+            position: initial;
+            padding-left: 0;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @include abstract.breakpoint(md) {
+            overflow-y: initial;
+        }
 
         &:nth-child(2) {
             .dropdown__icon {
@@ -151,14 +190,28 @@
         display: flex;
         gap: 20px;
 
+        @include abstract.breakpoint(md) {
+            gap: 14px;
+        }
+
         &:nth-of-type(5) {
             margin-left: 60px;
         }
     }
 
     &__column-group {
+        @include abstract.breakpoint(lg) {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
         .dropdown__column + .dropdown__column {
             margin-top: 21px;
+
+            @include abstract.breakpoint(lg) {
+                margin-top: 0;
+            }
         }
     }
 
@@ -169,6 +222,10 @@
 
         @include abstract.breakpoint(xl) {
             display: none;
+        }
+
+        @include abstract.breakpoint(lg) {
+            display: block;
         }
 
         &::before {
@@ -196,23 +253,47 @@
     &__content {
         width: 100%;
         margin-top: 3px;
+
+        @include abstract.breakpoint(lg) {
+            margin-top: 0;
+        }
     }
 
     &__title {
         font-weight: 500;
         line-height: 1.5;
+
+        @include abstract.breakpoint(lg) {
+            margin-top: 3px;
+        }
     }
 
     &__category-list {
         margin-top: 26px;
+
+        @include abstract.breakpoint(lg) {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            margin-top: 0;
+            padding: 15px 0;
+        }
+
+        @include abstract.breakpoint(md) {
+            padding: 0;
+            margin-top: 26px;
+            gap: 14px;
+        }
     }
 
     &__category-item {
-        &:hover .dropdown__sub-menu {
-            visibility: visible;
+        &--active .dropdown__sub-menu {
+            display: flex;
         }
 
-        &:hover > .dropdown__category-link {
+        &:hover > .dropdown__category-link,
+        &--active > .dropdown__category-link {
             text-shadow: 0px 0px 1px rgba(0, 113, 220, 1);
             color: rgba(0, 113, 220, 1);
         }
@@ -222,6 +303,10 @@
         display: block;
         font-size: 1.4rem;
         padding: 7px 5px;
+
+        @include abstract.breakpoint(lg) {
+            padding: 0;
+        }
     }
 }
 

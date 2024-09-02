@@ -15,9 +15,12 @@
 }
 
 .top-bar {
-    @extend %flexCenter;
-
     position: relative;
+
+    @extend %flexCenter;
+    @include abstract.breakpoint(md) {
+        justify-content: space-between;
+    }
 }
 
 .navbar {
@@ -38,7 +41,9 @@
         margin-left: 0;
         padding: 40px;
 
-        background: #fff;
+        background: var(--body-bg);
+        border-radius: 0px 20px 20px 0px;
+        box-shadow: 0px 40px 90px 20px var(--dropdown-shadow);
 
         &.show {
             translate: 0;
@@ -50,9 +55,19 @@
         }
     }
 
+    @include abstract.breakpoint(md) {
+        padding: 10px 10px 20px 20px;
+
+        inset: 0 10% 0 0;
+    }
+
     &__arrow-left {
         @include abstract.breakpoint(lg) {
             padding-bottom: 15px;
+        }
+
+        @include abstract.breakpoint(md) {
+            padding: 10px 0;
         }
     }
 
@@ -60,20 +75,34 @@
         @extend %flexCenter;
 
         @include abstract.breakpoint(lg) {
+            padding-right: 10px;
+            height: 100%;
+
             flex-direction: column;
             align-items: flex-start;
+
+            overflow-y: auto;
         }
     }
 
     &__item {
-        @include abstract.breakpoint(lg) {
-            width: 100%;
-        }
+        flex-shrink: 0;
 
         &:hover {
             .dropdown {
-                visibility: visible;
-                opacity: 1;
+                display: block;
+            }
+        }
+
+        @include abstract.breakpoint(lg) {
+            width: 100%;
+
+            &:hover .dropdown {
+                display: none;
+            }
+
+            &--active .dropdown {
+                display: block !important;
             }
         }
     }
@@ -95,15 +124,28 @@
             padding: 15px 0;
             height: initial;
         }
+
+        @include abstract.breakpoint(md) {
+            padding: 10px 0;
+        }
     }
 
     &__arrow {
         margin-top: 3px;
+
+        @include abstract.breakpoint(lg) {
+            rotate: -90deg;
+            transition: rotate 0.3s;
+        }
+    }
+
+    &__item--active &__arrow {
+        rotate: 0deg;
     }
 
     &-overlay {
         transition: visibility, opacity;
-        transition-duration: 0.3s;
+        transition-duration: 0.5s;
 
         @include abstract.breakpoint(lg) {
             visibility: hidden;
@@ -123,6 +165,10 @@
     display: flex;
     gap: 20px;
 
+    @include abstract.breakpoint(md) {
+        margin-left: 0;
+    }
+
     &__group {
         display: flex;
         border-radius: 8px;
@@ -130,23 +176,25 @@
         box-shadow: 0px 20px 60px 10px var(--top-act-group-shadow);
 
         @include abstract.breakpoint(lg) {
-            flex-direction: column;
-            align-items: flex-start;
+            width: 100%;
+
+            background: transparent;
+            box-shadow: none;
         }
     }
 
     &__btn {
         @extend %flexCenter;
+        @include abstract.breakpoint(lg) {
+            width: 100%;
+            padding: 15px 0;
+        }
+        @include abstract.breakpoint(md) {
+            padding: 10px 0;
+        }
 
         padding: 13px;
         gap: 10px;
-
-        @include abstract.breakpoint(lg) {
-            padding: 15px 0;
-            width: 100%;
-
-            gap: 16px;
-        }
 
         &--double {
             padding: 10px 20px;
@@ -174,6 +222,7 @@
     }
 
     &__user {
+        flex-shrink: 0;
         width: 50px;
     }
 

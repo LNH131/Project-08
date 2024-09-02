@@ -4,11 +4,12 @@ html {
     --body-bg: #f6f6f6;
     --header-bg-color: #eee;
     --text-color: #1a162e;
-    --icon-color: brightness(0) saturate(100%) invert(6%) sepia(34%)
-        saturate(2180%) hue-rotate(223deg) brightness(97%) contrast(94%);
+    --icon-color: brightness(0) saturate(100%) invert(6%) sepia(34%) saturate(2180%) hue-rotate(223deg) brightness(97%)
+        contrast(94%);
     --top-act-group-bg-color: #fff;
     --top-act-group-shadow: rgba(237, 237, 246, 0.2);
     --top-act-group-separate: #ededf6;
+
     @include abstract.breakpoint(lg) {
         --header-bg-color: #fff;
     }
